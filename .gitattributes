@@ -1,0 +1,11 @@
+# Enforce LF line endings for source code and text files
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.scss text eol=lf
+*.txt text eol=lf
+
+# Use CRLF for binary files and others if needed
+*.png binary
+*.jpg binary
+*.ico binary

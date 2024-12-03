@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %} Show Appointments {% endblock %}
+
+{% block content %}
+<table class="table table-dark table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Date</th>
+            <th>Department</th>
+            <th>Doctor</th>
+            <th>Message</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if appointments %}
+            {% for appointment in appointments %}
+            <tr>
+                <td>{{ appointment.name }}</td>
+                <td>{{ appointment.email }}</td>
+                <td>{{ appointment.phone }}</td>
+                <td>{{ appointment.date|date:"M d, Y h:i A" }}</td>
+                <td>{{ appointment.department }}</td>
+                <td>{{ appointment.doctor }}</td>
+                <td>{{ appointment.message }}</td>
+                <td>
+                    <a href="{% url 'medicall:update_appointment' appointment.id %}" class="btn btn-primary btn-sm">Edit</a>
+                    <a href="{% url 'medicall:pay' appointment.id %}" class="btn my-green-btn btn-sm">Pay</a>
+                    <form method="post" action="{% url 'medicall:delete_appointment' appointment.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="8" class="text-center">No appointments found.</td>
+            </tr>
+        {% endif %}
+    </tbody>
+</table>
+{% endblock %}
